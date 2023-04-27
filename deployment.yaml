@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: exchangeratesapi-deployment
+spec:
+  replicas: 1
+  template:
+   
+    spec:
+      containers:
+      - name: exchangeratesapi
+        image: nginx:1.7.9
+        envFrom:
+         - configMapRef:
+             name: environment
+        volumeMounts:
+        - name: tnsname-volume
+          mountPath: /mnt/
+      volumes:
+      - name: tnsname-volume
+        configMap:
+        # Provide the name of the ConfigMap containing the files you want
+        # to add to the container
+          name: tnsname
