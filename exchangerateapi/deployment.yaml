@@ -4,12 +4,17 @@ metadata:
   name: exchangeratesapi-deployment
 spec:
   replicas: 1
+   selector:
+    matchLabels:
+      app: exchangeratesapi-deployment
   template:
-   
+    metadata:
+      labels:
+        app: exchangeratesapi-deployment
     spec:
       containers:
       - name: exchangeratesapi
-        image: nginx:1.7.9
+        image: docker.io/jthibodeau41/httpd:ie2
         envFrom:
          - configMapRef:
              name: environment
