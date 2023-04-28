@@ -4,7 +4,7 @@ metadata:
   name: exchangeratesapi-deployment
   namespace: webapi-prod
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: exchangeratesapi-deployment
