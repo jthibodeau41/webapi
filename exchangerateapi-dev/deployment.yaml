@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: exchangeratesapi-deployment
+  namespace: webapi-prod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: exchangeratesapi-deployment
+  template:
+    metadata:
+      labels:
+        app: exchangeratesapi-deployment
+    spec:
+      containers:
+      - name: exchangeratesapi
+        image: docker.io/jthibodeau41/httpd:ie2
+        envFrom:
+         - configMapRef:
+             name: environment
+        volumeMounts:
+        - name: tnsname-volume
+          mountPath: /mnt/
+      volumes:
+      - name: tnsname-volume
+        configMap:
+        # Provide the name of the ConfigMap containing the files you want
+        # to add to the container
+          name: tnsname
